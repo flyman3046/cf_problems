@@ -1,21 +1,18 @@
 package com.example.android.touch;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.widget.ListView;
+import android.text.Html;
 import android.widget.TextView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by FZ on 12/28/2014.
@@ -23,27 +20,22 @@ import java.util.ArrayList;
 public class ProblemActivity extends ActionBarActivity {
     private ProgressDialog mProgressDialog;
     private String url = "";
-    private TextView m1TextView;
-    private TextView m2TextView;
+    private TextView mTitle;
+    private TextView mContent;
+    private String content;
+    private String eTitle;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problem_view);
         Intent intent = getIntent();
         url = intent.getStringExtra("href");
-        m1TextView = (TextView) findViewById(R.id.problem_title);
-        m2TextView = (TextView) findViewById(R.id.problem_content);
-
+        mTitle = (TextView) findViewById(R.id.problem_title);
+        mContent = (TextView) findViewById(R.id.problem_content);
         new LoadProblem().execute();
     }
 
-    public void updateAndDisplay(){
-        m1TextView.setText("Title");
-        m2TextView.setText("Problem content");
-    }
-
     private class LoadProblem extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -60,17 +52,13 @@ public class ProblemActivity extends ActionBarActivity {
                 // Connect to the web site
                 Document document = Jsoup.connect(url).get();
                 // Using Elements to get the Meta data
-                Elements problems = document
-                        .select("body div[id=body] div[id=content] div.datatable table[class=problems] td[class=id] a");
-                // Locate the content attribute
+                Elements element = document
+                        .select("body div[id=body] div[class=problem-statement] div[class=title]");
+                eTitle = element.first().text().toString();
 
-                for(int i = 0; i < problems.size(); i++){
-                    Element element = problems.get(i);
-                    String title = element.text().trim();
-
-                    String href = element.attr("abs:href").toString();
-
-                }
+                Elements problem = document
+                        .select("body div[id=body] div[class=problem-statement]");
+                content = problem.toString();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -80,7 +68,8 @@ public class ProblemActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void result) {
             // Set description into TextView
-            ProblemActivity.this.updateAndDisplay();
+            mTitle.setText(eTitle);
+            mContent.setText(Html.fromHtml(content.toString()));
             mProgressDialog.dismiss();
         }
     }
