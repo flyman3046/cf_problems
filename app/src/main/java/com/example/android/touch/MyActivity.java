@@ -90,6 +90,7 @@ public class MyActivity extends Activity implements OnItemClickListener {
                 Elements description = document
                         .select("body div.contests-table tbody tr[data-contestid]");
                 // Locate the content attribute
+//                System.out.println(description.toString());
                 for(int i = 0; i < description.size(); i++) {
                     Element element = description.get(i);
                     String[] title = element.select("td").get(0).toString().split("<br>");
