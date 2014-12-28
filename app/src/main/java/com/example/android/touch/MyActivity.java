@@ -31,6 +31,7 @@ public class MyActivity extends Activity implements OnItemClickListener {
     ProgressDialog mProgressDialog;
     Button mButton;
     List<String> listTests;
+    List<String> listHref;
     ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +50,9 @@ public class MyActivity extends Activity implements OnItemClickListener {
             }
         });
 
-
         listTests = new ArrayList<String>();
-//        ArrayAdapter<String> mForecastAdapter = new ArrayAdapter<String>(
-//                this,
-//                R.layout.list_item,
-//                R.id.list_item_textview,
-//                listTests
-//        );
-//        ListView listView = (ListView) findViewById(R.id.listview_main);
-//        listView.setAdapter(mForecastAdapter);
+        listHref = new ArrayList<String>();
+
         listView = (ListView) findViewById(R.id.listview_main);
         listView.setOnItemClickListener(this);
         new Description().execute();
@@ -67,13 +61,12 @@ public class MyActivity extends Activity implements OnItemClickListener {
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        String s = listTests.get(i);
         Log.v("Start a new activity", "");
         Intent intent = new Intent(this, ItemActivity.class);
-        intent.putExtra("href", s);
+        intent.putExtra("href", listHref.get(i));
+        intent.putExtra("title", listTests.get(i));
         this.startActivity(intent);
     }
-
 
     // Description AsyncTask
     private class Description extends AsyncTask<Void, Void, Void> {
@@ -106,7 +99,8 @@ public class MyActivity extends Activity implements OnItemClickListener {
                     String tit = ss[1].trim();
 
                     String href = element.select("a[href]").first().attr("abs:href").toString();
-                    listTests.add(tit + " " + href);
+                    listTests.add(tit);
+                    listHref.add(href);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -128,12 +122,6 @@ public class MyActivity extends Activity implements OnItemClickListener {
                 R.id.list_item_textview,
                 listTests
         );
-
         listView.setAdapter(mForecastAdapter);
-
     }
-
-
-
-
 }
