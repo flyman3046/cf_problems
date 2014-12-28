@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:minHeight="?android:attr/listPreferredItemHeight"
         android:gravity="center"
-        android:textSize="25dp"
-        android:text="title"/>
+        android:textSize="25dp"/>
+
 
     <ScrollView
         android:layout_width="match_parent"

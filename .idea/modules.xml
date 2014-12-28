@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/CF.iml" filepath="$PROJECT_DIR$/CF.iml" />
       <module fileurl="file://$PROJECT_DIR$/Touch.iml" filepath="$PROJECT_DIR$/Touch.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cf_problems.iml" filepath="$PROJECT_DIR$/cf_problems.iml" />
     </modules>
   </component>
 </project>
