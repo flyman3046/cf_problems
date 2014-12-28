@@ -27,12 +27,12 @@ import java.util.List;
 public class MyActivity extends Activity implements OnItemClickListener {
 
     // URL Address
-    String url = "http://codeforces.com/contests";
-    ProgressDialog mProgressDialog;
-    Button mButton;
-    List<String> listTests;
-    List<String> listHref;
-    ListView listView;
+    private String url = "http://codeforces.com/contests";
+    private ProgressDialog mProgressDialog;
+    private Button mButton;
+    private List<String> listTests;
+    private List<String> listHref;
+    private ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
